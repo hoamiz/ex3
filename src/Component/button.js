@@ -1,15 +1,20 @@
 import React from 'react'
+import { } from './../redux/action';
+import { connect } from 'react-redux';
 
-export const Button = (props) => {
-    let value = props.type.toUpperCase()
-    console.log(value)
+const Button = (props) => {
+    let value = props.name.toUpperCase()
     return (
         <div>
             <button
-                className={props.type}
+                className={props.name}
+                onClick={props.onSubmit}
             >
                 {value}
             </button>
         </div>
     )
 }
+const mapDispatchToProps = dispatch => ({
+})
+export default Button

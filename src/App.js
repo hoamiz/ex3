@@ -1,16 +1,18 @@
 import React from 'react';
 import './App.css';
-import { Form } from './Component/form';
+import Form from './Component/form';
 import { connect } from 'react-redux';
 
-function App(model) {
+const App = () => {
   return (
     <div className="App">
-      <Form model={'login'} />
+      <Form />
     </div>
   );
 }
-const mapStateToProps = (state) => ({
-  model: state.model
-})
-export default connect(mapStateToProps)(App);
+const mapStateToProps = state => {
+  return {
+    model: state.model
+  }
+}
+export default connect(mapStateToProps, null)(App);

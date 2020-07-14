@@ -1,13 +1,15 @@
-import * as action from './action'
-const initialState = { model: 'login' }
+const initialState = {
+    profiles: []
+}
 
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SUBMIT': {
-            return state
-        }
         case 'REGISTER': {
-            return { ...state, model: 'register' }
+            console.log(state)
+            return {
+                ...state,
+                profiles: [...state.profiles, action.profile]
+            }
         }
         default:
             return state

@@ -1,11 +1,8 @@
-export const onSubmit = () => {
+
+export const onRegister = (profile) => {
     return {
-        type: 'SUBMIT'
-    }
-}
-export const onRegister = () => {
-    return {
-        type: 'REGISTER'
+        type: 'REGISTER',
+        profile
     }
 }
 

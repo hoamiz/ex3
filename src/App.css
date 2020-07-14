@@ -24,7 +24,7 @@
   box-shadow: 4px 5px 10px #444141;
 }
 
-.username, .password {
+.input {
   width: 350px;
   height: 60px;
   margin: 10px 15px;
@@ -40,7 +40,7 @@
   padding-left: 10px;
 }
 
-button.login {
+button {
   background-color: #00b241;
   border: none;
   width: 350px;
@@ -48,14 +48,18 @@ button.login {
   margin: 10px 15px;
   color: #fff;
   font-size: 1.3rem;
+  cursor: pointer;
 }
 
 .tip {
   color: #b0b0b0;
   font-size: 1.2rem;
+  display: inline-block;
 }
 
-a {
+.link {
   color: #88d399;
-  text-decoration: none;
+  font-size: 1rem;
+  display: inline-block;
+  cursor: pointer;
 }

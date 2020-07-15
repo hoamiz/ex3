@@ -1,28 +1,28 @@
 import React from 'react'
-import { Input } from './input';
-import Button from './button';
 import { onRegister } from '../redux/action';
 import { connect } from 'react-redux';
-const iniState = {
-    username: {
-        value: '',
-        valid: false,
-    },
-    password: {
-        value: '',
-        valid: false,
-    },
-    email: {
-        value: '',
-        valid: false,
-    },
-    phone: {
-        value: '',
-        valid: false,
-    },
-    validated: true,
-    model: 'login'
+import { FormLogin } from './FormLogin';
+import { FormRegister } from './FormRegister';
+import { Route, Link } from 'react-router-dom';
+
+
+export const validate = (input) => {
+    const usernameRegex = /^[a-z0-9_-]{3,16}$/
+    //username : gom chu thuong va so  dai tu 3 - 16 tu
+    const passwordRegex = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/
+    //password : dai tren 8 , gom chu hoa, thuong , so
+    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const phoneRegex = /^[0-9_-]{10}$/
+
+    let statusCopy = Object.assign({}, input);
+    { input.username && (statusCopy.username.valid = usernameRegex.test(input.username.value)) };
+    { input.password && (statusCopy.password.valid = passwordRegex.test(input.password.value)) };
+    { input.email && (statusCopy.email.valid = emailRegex.test(input.email.value)) };
+    { input.phone && (statusCopy.phone.valid = phoneRegex.test(input.phone.value)) };
+    return statusCopy;
+
 }
+
 class Form extends React.Component {
     constructor(props) {
         super(props)
@@ -47,26 +47,11 @@ class Form extends React.Component {
             model: 'login'
         }
     }
-    validate = (input) => {
-        const usernameRegex = /^[a-z0-9_-]{3,16}$/
-        //username : gom chu thuong va so  dai tu 3 - 16 tu
-        const passwordRegex = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/
-        //password : dai tren 8 , gom chu hoa, thuong , so
-        const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        const phoneRegex = /^[0-9_-]{10}$/
 
-        let statusCopy = Object.assign({}, this.state);
-        { input.username && (statusCopy.username.valid = usernameRegex.test(input.username.value)) };
-        { input.password && (statusCopy.password.valid = passwordRegex.test(input.password.value)) };
-        { input.email && (statusCopy.email.valid = emailRegex.test(input.email.value)) };
-        { input.phone && (statusCopy.phone.valid = phoneRegex.test(input.phone.value)) };
-        console.log(statusCopy.email.valid = emailRegex.test(input.email.value))
-        this.setState(statusCopy);
-    }
     handdleSubmit = (e) => {
-        console.log(this.state)
         e.preventDefault();
-        this.validate(this.state)
+        let statusCopy = validate(this.state)
+        this.setState(statusCopy);
         if (this.state.model === 'register' && this.state.username.valid && this.state.password.valid && this.state.email.valid && this.state.phone.valid) {
             this.props.onRegister({
                 name: this.state.username.value,
@@ -74,11 +59,35 @@ class Form extends React.Component {
                 email: this.state.email.value,
                 phone: this.state.phone.value,
             })
-            this.setState(iniState)
+            this.setState({
+                username: {
+                    value: '',
+                    valid: false,
+                },
+                password: {
+                    value: '',
+                    valid: false,
+                },
+                email: {
+                    value: '',
+                    valid: false,
+                },
+                phone: {
+                    value: '',
+                    valid: false,
+                },
+                validated: true,
+                model: 'login'
+
+            })
+
         }
         else this.setState({
             validated: false
         })
+        if (this.state.model === 'login') {
+
+        }
     }
 
     onChange = (e) => {
@@ -95,32 +104,36 @@ class Form extends React.Component {
     }
 
     render() {
+
+        const { profiles } = this.props
+        console.log(profiles)
         switch (this.state.model) {
             case 'login': {
                 return (
-                    <form className="Form" onSubmit={this.handdleSubmit} >
-                        <Input type='text' name='username' value={this.state.username.value} onChange={this.onChange} />
-                        {!this.state.username.valid && !this.state.validated && <div>username is invalid</div>}
-                        <Input type='password' name='password' value={this.state.password.value} onChange={this.onChange} />
-                        {!this.state.password.valid && !this.state.validated && <div>password is invalid</div>}
-                        <Button type='submit' name='login' />
-                        <div className='tip'>Not registered? <div className='link' onClick={this.onRegister} >Create an account</div></div>
-                    </form>
+                    <Route path="/">
+                        <FormLogin
+                            to="/login"
+                            activeOnlyWhenExact={true}
+                            label="login"
+                            onSubmit={this.handdleSubmit}
+                            onRegister={this.onRegister}
+                            onChange={this.onChange}
+                            props={this.state} />
+                    </Route>
                 )
             }
             case 'register': {
                 return (
-                    <form className="Form" onSubmit={this.handdleSubmit} >
-                        <Input type='text' name='username' value={this.state.username.value} onChange={this.onChange} />
-                        {!this.state.username.valid && !this.state.validated && <div>username is invalid</div>}
-                        <Input type='password' name='password' value={this.state.password.value} onChange={this.onChange} />
-                        {!this.state.password.valid && !this.state.validated && <div>password is invalid</div>}
-                        <Input type='email' name='email' value={this.state.email.value} onChange={this.onChange} />
-                        {!this.state.email.valid && !this.state.validated && <div>email is invalid</div>}
-                        <Input type='phone' name='phone' value={this.state.phone.value} onChange={this.onChange} />
-                        {!this.state.phone.valid && !this.state.validated && <div>phone number is invalid</div>}
-                        <Button type='submit' name='register' />
-                    </form>
+                    <Route path="/register">
+                        <FormRegister
+                            to="/register"
+                            activeOnlyWhenExact={true}
+                            label="register"
+                            onSubmit={this.handdleSubmit}
+                            onChange={this.onChange}
+                            props={this.state} />
+                    </Route>
+
                 )
             }
         }

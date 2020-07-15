@@ -1,5 +1,4 @@
 import React from 'react'
-import { } from './../redux/action';
 import { connect } from 'react-redux';
 
 const Button = (props) => {

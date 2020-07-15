@@ -1,11 +1,17 @@
 const initialState = {
-    profiles: []
+    profiles: [
+        {
+            name: 'admin',
+            password:'Aaaaaaaaa',
+            email:'email@xxx.com',
+            phone:'1234567899'
+        },
+    ]
 }
 
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'REGISTER': {
-            console.log(state)
             return {
                 ...state,
                 profiles: [...state.profiles, action.profile]

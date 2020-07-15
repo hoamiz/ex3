@@ -5,12 +5,47 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore } from "redux";
 import Reducer from './redux/reducer';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/lib/integration/react';
 
-const store = createStore(Reducer)
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import { PageContent } from './Component/pageContent/pageContent';
+
+import { ErrorPage } from './Component/404page';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+
+const persistConfig = {
+  key: 'root',
+  storage: storage,
+  stateReconciler: autoMergeLevel2,// Xem thêm tại mục "Quá trình merge".
+  whitelist: ['Reducer']
+
+};
+
+const pReducer = persistReducer(persistConfig, Reducer);
+
+export const store = createStore(pReducer);
+export const persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <PersistGate persistor={persistor}>
+      <Router>
+        <Switch>
+          <Route path="/"><App /></Route>
+          <Route exact path="/index"><PageContent /></Route>
+          <Route path="*"><ErrorPage /></Route>
+
+        </Switch>
+      </Router>
+    </PersistGate>
   </Provider>,
   document.getElementById('root')
 );

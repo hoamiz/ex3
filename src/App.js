@@ -3,16 +3,15 @@ import './App.css';
 import Form from './Component/form';
 import { connect } from 'react-redux';
 
-const App = () => {
+const App = (state) => {
   return (
     <div className="App">
-      <Form />
+      <Form profiles={state.profiles} />
     </div>
   );
 }
 const mapStateToProps = state => {
-  return {
-    model: state.model
-  }
+  return state
+
 }
 export default connect(mapStateToProps, null)(App);

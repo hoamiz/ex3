@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 const Button = (props) => {
     let value = props.name.toUpperCase()
+
     return (
         <div>
             <button
-                className={props.name}
-                onClick={props.onSubmit}
+                className="button"
             >
                 {value}
             </button>

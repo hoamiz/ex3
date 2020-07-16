@@ -6,5 +6,17 @@ export const onRegister = (profile) => {
     }
 }
 
+export const login = (profile) => {
+    return {
+        type: 'LOGIN',
+        profile
+    }
+}
+export const logout = () => {
+    return {
+        type: 'LOGOUT'
+    }
+}
+
 
 

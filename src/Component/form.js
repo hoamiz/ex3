@@ -1,9 +1,10 @@
 import React from 'react'
-import { onRegister } from '../redux/action';
+import { onRegister, login } from '../redux/action';
 import { connect } from 'react-redux';
 import { FormLogin } from './FormLogin';
 import { FormRegister } from './FormRegister';
-import { Route, Link } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { withRouter } from "react-router";
 
 
 export const validate = (input) => {
@@ -44,7 +45,9 @@ class Form extends React.Component {
                 valid: false,
             },
             validated: true,
-            model: 'login'
+            model: 'login',
+            wrongPass: false,
+            wrongUser: false,
         }
     }
 
@@ -86,10 +89,16 @@ class Form extends React.Component {
             validated: false
         })
         if (this.state.model === 'login') {
-
+            let profile = this.props.profiles.find(x => x.name === this.state.username.value)
+            if (!profile) this.setState({
+                wrongUser: true
+            })
+            if (profile && profile.password === this.state.password.value) this.props.login(profile)
+            else this.setState({
+                wrongPass: true
+            })
         }
     }
-
     onChange = (e) => {
         let inputValue = e.target.value;
         let statusCopy = Object.assign({}, this.state);
@@ -102,46 +111,44 @@ class Form extends React.Component {
             model: 'register'
         })
     }
-
     render() {
-
-        const { profiles } = this.props
-        console.log(profiles)
-        switch (this.state.model) {
-            case 'login': {
-                return (
-                    <Route path="/">
+        const { profiles, login, isLogin, location } = this.props
+        return (
+            <div>
+                {this.state.model === 'login' ? <Redirect to="/" /> : <Redirect to="/register" />}
+                <Switch>
+                    <Route exact path="/">
                         <FormLogin
-                            to="/login"
                             activeOnlyWhenExact={true}
                             label="login"
                             onSubmit={this.handdleSubmit}
                             onRegister={this.onRegister}
                             onChange={this.onChange}
-                            props={this.state} />
+                            props={this.state}
+                            isLogin={isLogin}
+                        />
                     </Route>
-                )
-            }
-            case 'register': {
-                return (
-                    <Route path="/register">
+                    <Route exact path="/register">
                         <FormRegister
-                            to="/register"
                             activeOnlyWhenExact={true}
                             label="register"
                             onSubmit={this.handdleSubmit}
                             onChange={this.onChange}
                             props={this.state} />
-                    </Route>
 
-                )
-            }
-        }
+                    </Route>
+                </Switch>
+
+            </div>
+        )
+
+
     }
 }
 
 const mapDispatchToProps = dispatch => ({
     onRegister: (profile) => dispatch(onRegister(profile)),
+    login: (profile) => dispatch(login(profile)),
 })
 
-export default connect(null, mapDispatchToProps)(Form)
+export default withRouter(connect(null, mapDispatchToProps)(Form))

@@ -10,14 +10,15 @@ import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-import { PageContent } from './Component/pageContent/pageContent';
+import PageContent from './Component/pageContent/pageContent';
 
 import { ErrorPage } from './Component/404page';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect
 } from "react-router-dom";
 
 
@@ -28,21 +29,19 @@ const persistConfig = {
   whitelist: ['Reducer']
 
 };
-
 const pReducer = persistReducer(persistConfig, Reducer);
 
 export const store = createStore(pReducer);
 export const persistor = persistStore(store);
-
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <Router>
         <Switch>
-          <Route path="/"><App /></Route>
           <Route exact path="/index"><PageContent /></Route>
+          <Route exact path="/"><App /></Route>
+          <Route exact path="/register"><App /></Route>
           <Route path="*"><ErrorPage /></Route>
-
         </Switch>
       </Router>
     </PersistGate>

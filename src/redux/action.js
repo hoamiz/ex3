@@ -17,6 +17,18 @@ export const logout = () => {
         type: 'LOGOUT'
     }
 }
+export const deleteProfile = (key) => {
+    return {
+        type: 'DELETE',
+        key
+    }
+}
+export const editProfile = (person) => {
+    return {
+        type: 'EDIT',
+        person
+    }
+}
 
 
 

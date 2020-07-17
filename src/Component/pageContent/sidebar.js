@@ -6,6 +6,7 @@ import {
     UserOutlined,
     VideoCameraOutlined,
     UploadOutlined,
+    RadarChartOutlined,
 } from '@ant-design/icons';
 
 import { Layout, Menu } from 'antd';
@@ -26,7 +27,7 @@ export class Sidebar extends React.Component {
 
     render() {
         return (
-            <Sider trigger={null} collapsible collapsed={this.state.collapsed} className="sidebar">
+            <Sider width='250' trigger={null} collapsible collapsed={this.state.collapsed} className="sidebar">
                 <Header className="menuIcon" style={{ padding: 0 }} onClick={this.toggle}>
                     {React.createElement(
                         this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
@@ -37,15 +38,10 @@ export class Sidebar extends React.Component {
                     )}
                 </Header>
                 <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-                    <Menu.Item className="sidebarItem" key="1" icon={<UserOutlined />}>
-                        nav 1
-            </Menu.Item>
-                    <Menu.Item className="sidebarItem" key="2" icon={<VideoCameraOutlined />}>
-                        nav 2
-            </Menu.Item>
-                    <Menu.Item className="sidebarItem" key="3" icon={<UploadOutlined />}>
-                        nav 3
-            </Menu.Item>
+                    <Menu.Item className="sidebarItem" key="1" icon={<UserOutlined />}>Option 1</Menu.Item>
+                    <Menu.Item className="sidebarItem" key="2" icon={<VideoCameraOutlined />}>Option 2</Menu.Item>
+                    <Menu.Item className="sidebarItem" key="3" icon={<UploadOutlined />}>Option 3</Menu.Item>
+                    <Menu.Item className="sidebarItem" key="4" icon={<RadarChartOutlined />}>Option 4</Menu.Item>
                 </Menu>
             </Sider>
         )

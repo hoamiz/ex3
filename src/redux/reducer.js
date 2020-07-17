@@ -1,6 +1,7 @@
 const initialState = {
     profiles: [
         {
+            key: '1',
             name: 'admin',
             password: '123',
             email: 'email@xxx.com',
@@ -31,6 +32,21 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 login: false
+            }
+        }
+        case 'DELETE': {
+            return {
+                ...state,
+                profiles: [...state.profiles.filter(profile => profile.key !== action.key)]
+            }
+        }
+        case 'EDIT': {
+            const profiles = state.profiles.filter(profile => profile.name !== action.person.name)
+            const key = state.profiles.filter(profile => profile.name === action.person.name)[0].key
+            action.person.key = key
+            return {
+                ...state,
+                profiles: [...profiles, action.person]
             }
         }
         default:

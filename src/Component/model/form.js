@@ -1,5 +1,5 @@
 import React from 'react'
-import { onRegister, login } from '../redux/action';
+import { onRegister, login } from '../../redux/action';
 import { connect } from 'react-redux';
 import { FormLogin } from './FormLogin';
 import { FormRegister } from './FormRegister';
@@ -57,6 +57,7 @@ class Form extends React.Component {
         this.setState(statusCopy);
         if (this.state.model === 'register' && this.state.username.valid && this.state.password.valid && this.state.email.valid && this.state.phone.valid) {
             this.props.onRegister({
+                key: `${Math.floor(1 + Math.random() * 999)}`,
                 name: this.state.username.value,
                 password: this.state.password.value,
                 email: this.state.email.value,
@@ -93,6 +94,9 @@ class Form extends React.Component {
             if (!profile) this.setState({
                 wrongUser: true
             })
+            else this.setState({
+                wrongUser: false
+            })
             if (profile && profile.password === this.state.password.value) this.props.login(profile)
             else this.setState({
                 wrongPass: true
@@ -112,6 +116,7 @@ class Form extends React.Component {
         })
     }
     render() {
+
         const { profiles, login, isLogin, location } = this.props
         return (
             <div>
@@ -135,7 +140,6 @@ class Form extends React.Component {
                             onSubmit={this.handdleSubmit}
                             onChange={this.onChange}
                             props={this.state} />
-
                     </Route>
                 </Switch>
 

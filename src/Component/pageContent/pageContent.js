@@ -4,7 +4,7 @@ import { Layout } from "antd";
 import HeaderBar from './header';
 
 import { Sidebar } from './sidebar';
-import { MainContent } from "./mainContent";
+import MainContent from "./mainContent";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
@@ -12,14 +12,14 @@ import { Redirect } from "react-router-dom";
 
 export class PageContent extends React.Component {
     render() {
-        const { login, personIsLogin } = this.props
+        const { login, personIsLogin, profiles } = this.props
         return (
             <Layout>
                 {!login ? <Redirect to="/" /> : null}
                 <Sidebar />
                 <Layout className="site-layout">
                     <HeaderBar personIsLogin={personIsLogin} />
-                    <MainContent />
+                    <MainContent profiles={profiles.filter(profile => profile.key !== personIsLogin.key)} />
                 </Layout>
             </Layout>
         );
@@ -27,7 +27,9 @@ export class PageContent extends React.Component {
 }
 const mapStateToProps = state => ({
     login: state.login,
-    personIsLogin: state.personIsLogin
+    personIsLogin: state.personIsLogin,
+    profiles: state.profiles,
+
 
 
 })

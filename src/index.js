@@ -25,9 +25,7 @@ import {
 const persistConfig = {
   key: 'root',
   storage: storage,
-  stateReconciler: autoMergeLevel2,// Xem thêm tại mục "Quá trình merge".
-  whitelist: ['Reducer']
-
+  stateReconciler: autoMergeLevel2,
 };
 const pReducer = persistReducer(persistConfig, Reducer);
 

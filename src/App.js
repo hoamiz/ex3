@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import Form from './Component/form';
+import Form from './Component/model/form';
 import { connect } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+
 
 const App = (state) => {
 

@@ -2,35 +2,34 @@ import React from "react";
 import "antd/dist/antd.css";
 import { Layout } from "antd";
 import HeaderBar from './header';
-
-import { Sidebar } from './sidebar';
+import Sidebar from './sidebar';
 import MainContent from "./mainContent";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Router, Switch, Route } from "react-router-dom";
+import Tab2 from "./tab2";
 
 
-
-export class PageContent extends React.Component {
-    render() {
-        const { login, personIsLogin, profiles } = this.props
-        return (
-            <Layout>
-                {!login ? <Redirect to="/" /> : null}
+const PageContent = (props) => {
+    const { login, personIsLogin, profiles } = props
+    return (
+        <Layout>
+            {!login ? <Redirect to="/" /> : null}
+            <Layout className="site-layout">
+                <HeaderBar personIsLogin={personIsLogin} />
                 <Sidebar />
-                <Layout className="site-layout">
-                    <HeaderBar personIsLogin={personIsLogin} />
-                    <MainContent profiles={profiles.filter(profile => profile.key !== personIsLogin.key)} />
-                </Layout>
+                <Switch>
+                    <Route exact path="/index"><MainContent profiles={profiles.filter(profile => profile.key !== personIsLogin.key)} /></Route>
+                    <Route exact path="/tab2"><Tab2 /></Route>
+                </Switch>
             </Layout>
-        );
-    }
+        </Layout>
+    );
 }
+
 const mapStateToProps = state => ({
     login: state.login,
     personIsLogin: state.personIsLogin,
     profiles: state.profiles,
-
-
 
 })
 export default connect(mapStateToProps, null)(PageContent)

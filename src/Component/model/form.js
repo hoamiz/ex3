@@ -12,14 +12,14 @@ export const validate = (input) => {
     //username : gom chu thuong va so  dai tu 3 - 16 tu
     const passwordRegex = /^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/
     //password : dai tren 8 , gom chu hoa, thuong , so
-    const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const emailRegex = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
     const phoneRegex = /^[0-9_-]{10}$/
 
     let statusCopy = Object.assign({}, input);
-    { input.username && (statusCopy.username.valid = usernameRegex.test(input.username.value)) };
-    { input.password && (statusCopy.password.valid = passwordRegex.test(input.password.value)) };
-    { input.email && (statusCopy.email.valid = emailRegex.test(input.email.value)) };
-    { input.phone && (statusCopy.phone.valid = phoneRegex.test(input.phone.value)) };
+    input.username && (statusCopy.username.valid = usernameRegex.test(input.username.value));
+    input.password && (statusCopy.password.valid = passwordRegex.test(input.password.value));
+    input.email && (statusCopy.email.valid = emailRegex.test(input.email.value));
+    input.phone && (statusCopy.phone.valid = phoneRegex.test(input.phone.value));
     return statusCopy;
 
 }
@@ -117,7 +117,7 @@ class Form extends React.Component {
     }
     render() {
 
-        const { profiles, login, isLogin, location } = this.props
+        const { isLogin } = this.props
         return (
             <div>
                 {this.state.model === 'login' ? <Redirect to="/" /> : <Redirect to="/register" />}

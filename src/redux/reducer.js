@@ -3,7 +3,7 @@ const initialState = {
         {
             key: '1',
             name: 'admin',
-            password: '123',
+            password: '',
             email: 'email@xxx.com',
             phone: '1234567899'
         },

@@ -57,7 +57,7 @@ class Form extends React.Component {
         this.setState(statusCopy);
         if (this.state.model === 'register' && this.state.username.valid && this.state.password.valid && this.state.email.valid && this.state.phone.valid) {
             this.props.onRegister({
-                key: `${Math.floor(1 + Math.random() * 999)}`,
+                key: `${Math.floor(1 + Math.random() * 999999)}`,
                 name: this.state.username.value,
                 password: this.state.password.value,
                 email: this.state.email.value,

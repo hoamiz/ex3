@@ -4,19 +4,16 @@ import { Progress } from 'antd';
 const Question = (props) => {
     const [count, setCount] = useState(10)
     const [t, setT] = useState(props.score.t)
+    const [ff, setF] = useState(props.score.f)
     let f = props.score.f
     useEffect(() => {
         countDown()
-    });
+    }, [count, t, ff]);
     const countDown = () => {
-        if (t !== props.score.t) {
+        if (t !== props.score.t || ff !== props.score.f) {
+            setF(f)
             setT(props.score.t)
             setCount(10)
-            clearTimeout(setTimeout(
-                () => {
-                    setCount(count - 1)
-                }
-                , 1000))
         } else if (count > 0) {
             setTimeout(
                 () => {
@@ -43,7 +40,7 @@ const Question = (props) => {
                 percent={count * 10}
                 status={count > 4 ? "active" : "exception"}
                 width={110}
-                format={() => `  Time : ${count}s  `}
+                format={() => `Time: ${count}s`}
             />
         </div>
     )

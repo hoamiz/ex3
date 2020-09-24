@@ -14,7 +14,7 @@ const MiniGameContainer = () => {
     }
     useEffect(() => {
         setTotal(score.t + score.f)
-    });
+    },[score]);
     const resetGame = () => {
         setTotal(0)
         setScore({ t: 0, f: 0 })

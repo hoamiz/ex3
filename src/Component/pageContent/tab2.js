@@ -1,17 +1,13 @@
 import React from "react";
-import { Table, Layout, Button } from 'antd';
+import {  Layout } from 'antd';
 import 'antd/dist/antd.css';
-import { deleteProfile, editProfile } from '../../redux/action'
-import { connect } from 'react-redux';
 import MiniGameContainer from './../MiniGame/MiniGameContainer';
 
 
 const { Content } = Layout;
-const { Column } = Table;
 
 
-const Tab2 = (props) => {
-    const { profiles } = props
+const Tab2 = () => {
     return (
         <Content
             className="site-layout-background"
@@ -24,11 +20,5 @@ const Tab2 = (props) => {
         </Content>
     )
 }
-const mapDispatchToProps = dispatch => ({
-    deleteProfile: (key) => dispatch(deleteProfile(key)),
-    editProfile: (person) => dispatch(editProfile(person))
-})
-const mapStateToProps = state => ({
-    profiles: state.profiles
-})
-export default connect(mapStateToProps, mapDispatchToProps)(Tab2)
+
+export default Tab2

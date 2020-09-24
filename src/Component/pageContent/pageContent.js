@@ -5,7 +5,7 @@ import HeaderBar from './header';
 import Sidebar from './sidebar';
 import MainContent from "./mainContent";
 import { connect } from "react-redux";
-import { Redirect, Router, Switch, Route } from "react-router-dom";
+import { Redirect, Switch, Route } from "react-router-dom";
 import Tab2 from "./tab2";
 
 

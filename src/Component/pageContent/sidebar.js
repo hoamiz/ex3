@@ -11,7 +11,7 @@ import {
 
 import { Layout, Menu } from 'antd';
 import { connect } from "react-redux";
-import { Route, Switch, Redirect, Link } from 'react-router-dom';
+import {Link } from 'react-router-dom';
 
 const { Header, Sider } = Layout;
 

@@ -6,7 +6,7 @@ import { deleteProfile, editProfile } from '../../redux/action'
 import { connect } from 'react-redux';
 import { validate } from './../model/form';
 const { Content } = Layout;
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
 
 
 class MainContent extends React.Component {
@@ -67,7 +67,6 @@ class MainContent extends React.Component {
         this.setState({
             visible: !this.state.visible,
             validated: true
-
         })
     }
     handleChange = (e) => {
@@ -108,23 +107,36 @@ class MainContent extends React.Component {
             <Content
                 className="site-layout-background"
                 style={{
-                    margin: "24px 16px",
+                    margin: "34px 0px",
                     padding: 24,
                     minHeight: 280
                 }}
             ><Table
                 dataSource={profiles} className="table" >
-                    <Column title="Name" dataIndex="name" key="name" />
-                    <Column title="Email" dataIndex="email" key="email" />
+                    <Column
+                        title="Name"
+                        dataIndex="name"
+                        key="name"
+                        width='20%'
+                    />
+                    <Column
+                        title="Email"
+                        dataIndex="email"
+                        key="email"
+                        width='40%'
+
+                    />
                     <Column
                         title="Phone"
                         dataIndex="phone"
                         key="phone"
+                        width='20%'
                     />
 
                     <Column
                         title="Action"
                         key="action"
+                        width='20%'
                         render={(rowIndex, record) => (
                             <Space size="middle">
                                 <Button
@@ -166,6 +178,7 @@ class MainContent extends React.Component {
                             name="email"
                             value={this.state.personOnEdit.email.value}
                             onChange={this.handleChange.bind(this)}
+                            autoFocus
                         />
                         {!this.state.personOnEdit.email.valid && !this.state.validated && <div className="warnigInfo">email is invalid</div>}
 

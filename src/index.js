@@ -17,10 +17,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  Redirect
 } from "react-router-dom";
-
+import MainContent from './Component/pageContent/mainContent';
+import Tab2 from './Component/pageContent/tab2';
 
 const persistConfig = {
   key: 'root',
@@ -36,18 +35,19 @@ ReactDOM.render(
     <PersistGate persistor={persistor}>
       <Router>
         <Switch>
-          <Route exact path="/index"><PageContent /></Route>
+          <Route exact path="/index"><PageContent><MainContent /></PageContent ></Route>
+          <Route exact path="/tab2"><PageContent><Tab2 /></PageContent ></Route>
           <Route exact path="/"><App /></Route>
           <Route exact path="/register"><App /></Route>
           <Route path="*"><ErrorPage /></Route>
         </Switch>
       </Router>
     </PersistGate>
-  </Provider>,
+  </Provider >,
   document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

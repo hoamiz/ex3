@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux';
 
 const Button = (props) => {
     let value = props.name.toUpperCase()
@@ -14,6 +13,4 @@ const Button = (props) => {
         </div>
     )
 }
-const mapDispatchToProps = dispatch => ({
-})
 export default Button

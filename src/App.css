@@ -195,10 +195,14 @@ tr {
 }
 
 #addPerson {
-  margin-right: 430px;
-  position: relative;
+  right: 400px;
   height: 100%;
   font-size: 1.4rem;
+  background-color:#001529 ;
+  border: none;
+}
+#addPerson:hover{
+  background-color:#1890ff ;
 }
 
 .warnigInfo {

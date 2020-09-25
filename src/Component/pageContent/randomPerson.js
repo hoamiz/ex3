@@ -362,7 +362,7 @@ export const randomPerson = () => {
     const num1 = Math.floor(Math.random() * 120)
     const num2 = Math.floor(Math.random() * 121)
     const num3 = Math.floor(Math.random() * 106)
-    const key = Math.floor(Math.random() * 999)
+    const key = Math.floor(Math.random() * 99999999)
     const password = `${nameData.firstName[num2]}${nameData.middleName[num1]}${key}`
     const name = nameData.firstName[num1] + ' ' + nameData.middleName[num2]
     const email = `${nameData.firstName[num1].toLowerCase()}${nameData.lastName[num3]}@gmail.com`

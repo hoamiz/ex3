@@ -1,3 +1,4 @@
+import _ from 'lodash'
 const initialState = {
     profiles: [
         {
@@ -5,15 +6,15 @@ const initialState = {
             name: 'admin',
             password: '',
             email: 'email@xxx.com',
-            phone: '1234567899'
+            phone: '1234567899',
+            posts: [],
         },
     ],
     login: false,
-    personIsLogin: {
-
-    }
+    personIsLogin: {}
 }
 const Reducer = (state = initialState, action) => {
+    console.log(action.payload, state)
     switch (action.type) {
         case 'REGISTER': {
             return {
@@ -47,6 +48,31 @@ const Reducer = (state = initialState, action) => {
             return {
                 ...state,
                 profiles: [...profiles, action.person]
+            }
+        }
+        case 'POST_STATUS': {
+            const key = action.payload.person.key
+            const profiles = state.profiles.filter(profile => profile.key !== key)
+            const person = state.profiles.filter(profile => profile.key === key)[0]
+            const id = new Date().getTime()
+            person.posts && person.posts.push({ author: action.payload.person.name, post: action.payload.post, id: id })
+            return {
+                ...state,
+                profiles: [...profiles, person]
+
+            }
+        }
+        case 'DEL_POST': {
+            const newProfile = _.cloneDeep(state.profiles)
+            if (action.payload.author === state.personIsLogin.name) {
+                const index = state.profiles.findIndex(profile => profile.name === action.payload.author)
+                const postIndex = newProfile[index].posts.findIndex(post => post.id === action.payload.id)
+                newProfile[index].posts.splice(postIndex, 1)
+            }
+            return {
+                ...state,
+                profiles: newProfile
+
             }
         }
         default:

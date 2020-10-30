@@ -20,13 +20,17 @@ import {
 } from "react-router-dom";
 import MainContent from './Component/pageContent/mainContent';
 import Tab2 from './Component/pageContent/tab2';
+import Tab3 from './Component/pageContent/tab3';
+import Tab4 from './Component/pageContent/tab4';
 
 const persistConfig = {
   key: 'root',
   storage: storage,
   stateReconciler: autoMergeLevel2,
 };
-const pReducer = persistReducer(persistConfig, Reducer);
+const pReducer = persistReducer(persistConfig,
+  Reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export const store = createStore(pReducer);
 export const persistor = persistStore(store);
@@ -37,6 +41,8 @@ ReactDOM.render(
         <Switch>
           <Route exact path="/index"><PageContent><MainContent /></PageContent ></Route>
           <Route exact path="/tab2"><PageContent><Tab2 /></PageContent ></Route>
+          <Route exact path="/tab3"><PageContent><Tab3 /></PageContent ></Route>
+          <Route exact path="/tab4"><PageContent><Tab4 /></PageContent ></Route>
           <Route exact path="/"><App /></Route>
           <Route exact path="/register"><App /></Route>
           <Route path="*"><ErrorPage /></Route>

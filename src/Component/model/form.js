@@ -62,6 +62,7 @@ class Form extends React.Component {
                 password: this.state.password.value,
                 email: this.state.email.value,
                 phone: this.state.phone.value,
+                posts: []
             })
             this.setState({
                 username: {

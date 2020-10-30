@@ -6,8 +6,19 @@ import { logout, onRegister } from './../../redux/action';
 import { randomPerson } from './randomPerson';
 const { Header } = Layout;
 const HeaderBar = (props) => {
-    const generatePerson = () => {
-        const newPerson = randomPerson()
+    const checkKey = (newPerson) => {
+        props.profiles.map(profile => {
+            if (profile.key === newPerson.key) {
+                console.log(profile.key, newPerson.key)
+                newPerson.key++
+                return checkKey(newPerson)
+            }
+            else return newPerson
+        })
+    }
+    const generatePerson = async () => {
+        const newPerson = await randomPerson()
+        await checkKey(newPerson)
         props.onRegister(newPerson)
     }
     const avaSrc = "https://www.rochesterfirst.com/wp-content/uploads/sites/66/2019/09/cat.jpg"

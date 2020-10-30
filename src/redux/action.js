@@ -29,6 +29,18 @@ export const editProfile = (person) => {
         person
     }
 }
+export const postStatus = (person, post) => {
+    return {
+        type: 'POST_STATUS',
+        payload: { person, post }
+    }
+}
 
+export const delPost = (author, id) => {
+    return {
+        type: 'DEL_POST',
+        payload: { author, id }
+    }
+}
 
 

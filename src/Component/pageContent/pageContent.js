@@ -7,6 +7,8 @@ import MainContent from "./mainContent";
 import { connect } from "react-redux";
 import { Redirect, Switch, Route } from "react-router-dom";
 import Tab2 from "./tab2";
+import Tab3 from './tab3';
+import Tab4 from './tab4';
 
 
 const PageContent = (props) => {
@@ -20,6 +22,8 @@ const PageContent = (props) => {
                 <Switch>
                     <Route exact path="/index"><MainContent profiles={profiles.filter(profile => profile.key !== personIsLogin.key)} /></Route>
                     <Route exact path="/tab2"><Tab2 /></Route>
+                    <Route exact path="/tab3"><Tab3 /></Route>
+                    <Route exact path="/tab4"><Tab4 /></Route>
                 </Switch>
             </Layout>
         </Layout>

@@ -112,7 +112,7 @@ class MainContent extends React.Component {
                     minHeight: 280
                 }}
             ><Table
-                dataSource={profiles} className="table" >
+                dataSource={profiles.reverse()} className="table" >
                     <Column
                         title="Name"
                         dataIndex="name"

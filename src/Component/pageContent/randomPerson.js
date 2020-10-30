@@ -367,12 +367,21 @@ export const randomPerson = () => {
     const name = nameData.firstName[num1] + ' ' + nameData.middleName[num2]
     const email = `${nameData.firstName[num1].toLowerCase()}${nameData.lastName[num3]}@gmail.com`
     const phone = Math.floor((1000000000 + Math.random() * (9999999999 - 1000000000)))
+    const post = `${name} is author of this post! \n and my email is: ${email}`
+    const posts = []
+    posts.push({
+        author: name,
+        id: new Date().getTime(),
+        post: post
+
+    })
     const person = {
         key,
         name,
         password,
         email,
         phone,
+        posts
     }
     return person
 }
